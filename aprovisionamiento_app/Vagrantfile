@@ -1,0 +1,21 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+  config.vm.define :servidorWeb do |servidorWeb|
+    servidorWeb.vm.box = "bento/ubuntu-22.04"
+    servidorWeb.vm.network :private_network, ip: "192.168.80.3"
+    
+    servidorWeb.vm.provision "file", source: "frontend", destination: "/home/vagrant/frontend"
+    servidorWeb.vm.provision "file", source: "microusers", destination: "/home/vagrant/microusers"
+    servidorWeb.vm.provision "file", source: "microproducts", destination: "/home/vagrant/microproducts"
+    servidorWeb.vm.provision "file", source: "microorders", destination: "/home/vagrant/microorders"
+    servidorWeb.vm.provision "file", source: "db/init.sql", destination: "/home/vagrant/db/init.sql"
+    servidorWeb.vm.provision "file", source: "docker-compose.yml", destination: "/home/vagrant/docker-compose.yml"
+    servidorWeb.vm.provision "shell", path: "script.sh"
+    servidorWeb.vm.hostname = "servidorWeb"
+    servidorWeb.vm.synced_folder "C:/Users/moren/Sincronizado", "/home/vagrant/sincronizado"
+  end
+end
+

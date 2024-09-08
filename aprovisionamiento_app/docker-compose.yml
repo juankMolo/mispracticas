@@ -1,0 +1,76 @@
+services:
+  microusers:
+    build: ./microusers
+    links:
+      - db
+    depends_on:
+      - db
+    ports:
+      - "5002:5002"
+    networks:
+      - backend
+    environment:
+      MYSQL_HOST: db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      MYSQL_DB: myflaskapp
+
+  microproducts:
+    build: ./microproducts
+    links:
+      - db
+    depends_on:
+      - db
+    ports:
+      - "5003:5003"
+    networks:
+      - backend
+    environment:
+      MYSQL_HOST: db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      MYSQL_DB: myflaskapp
+
+  microorders:
+    build: ./microorders  # Ruta donde se encuentra el Dockerfile de microorders
+    links:
+      - db
+    depends_on:
+      - db
+    ports:
+      - "5004:5004"
+    networks:
+      - backend
+    environment:
+      MYSQL_HOST: db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      MYSQL_DB: myflaskapp
+
+  frontend:
+    build: ./frontend
+    links:
+      - microusers
+      - microproducts
+      - microorders  # Asegúrate de que el frontend puede enlazarse con microorders
+    ports:
+      - "5001:5001"
+    networks:
+      - backend
+
+  db:
+    image: mysql:8.0
+    ports:
+      - "32000:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: myflaskapp
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d/:ro
+    command: --default-authentication-plugin=mysql_native_password
+    networks:
+      - backend
+
+networks:
+  backend:
+
