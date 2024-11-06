@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  microusers:
+    build:
+      context: ./microusers
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_PROFILES_ACTIVE=chaos
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=default
+      - MICROSERVICE_USERS_URL=http://microusers:8081/api/users
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+

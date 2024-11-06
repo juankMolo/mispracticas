@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Gestión de Usuarios</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="/users">Gestión de Usuarios</a>
+  </nav>
+
+  <div class="container mt-5">
+    <h2>Agregar Nuevo Usuario</h2>
+    <form id="add-user-form">
+      <div class="form-group">
+        <label for="name">Nombre</label>
+        <input type="text" class="form-control" id="name" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Correo Electrónico</label>
+        <input type="email" class="form-control" id="email" required>
+      </div>
+      <div class="form-group">
+        <label for="username">Usuario</label>
+        <input type="text" class="form-control" id="username" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Contraseña</label>
+        <input type="password" class="form-control" id="password" required>
+      </div>
+      <button type="button" onclick="createUser()">Crear Usuario</button>
+    </form>
+
+    <h2 class="mt-5">Editar Usuario</h2>
+    <form id="edit-user-form" style="display: none;">
+      <input type="hidden" id="edit-user-id">
+      <div class="form-group">
+        <label for="edit-name">Nombre</label>
+        <input type="text" class="form-control" id="edit-name" required>
+      </div>
+      <div class="form-group">
+        <label for="edit-email">Correo Electrónico</label>
+        <input type="email" class="form-control" id="edit-email" required>
+      </div>
+      <div class="form-group">
+        <label for="edit-username">Usuario</label>
+        <input type="text" class="form-control" id="edit-username" required>
+      </div>
+      <div class="form-group">
+        <label for="edit-password">Contraseña</label>
+        <input type="password" class="form-control" id="edit-password" required>
+      </div>
+      <button type="button" onclick="updateUser()">Guardar Cambios</button>
+    </form>
+
+    <h2 class="mt-5">Lista de Usuarios</h2>
+
+    <!-- Elemento para mostrar mensajes al usuario -->
+    <p id="status-message" class="text-info"></p>
+
+    <table id="user-list" class="table table-striped">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Correo Electrónico</th>
+          <th>Usuario</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <!-- Cargar el script correctamente -->
+  <script src="/scriptUsers.js"></script>
+</body>
+</html>
+
